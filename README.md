@@ -189,12 +189,12 @@ The device might not be able to get a connection and need access to wifi be gran
 After the `dhcpcd <interface-name>` command yields a valid connection it is useful to have the pi connect on startup
 
 ```bash
-# Copy and editexample config file
-sudo cp /etc/netctl/example/wireless-wpa /etc/netctl/auto-connect
-sudo nano /etc/netctl/auto-connect
+# Copy and edit example config file
+cp /etc/netctl/example/wireless-wpa /etc/netctl/auto-connect
+nano /etc/netctl/auto-connect
 # Use wpa_passphrase PSK instead of key
 # Key='<psk>'
-sudo systemctl enable netctl-auto@wlan0.service
+systemctl enable netctl-auto@wlan0.service
 ```
 
 The _wpa_passphrase PSK_ can be found in `/etc/wpa_supplicant/wpa_supplicant.conf`.
