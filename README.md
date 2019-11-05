@@ -14,7 +14,7 @@ Setup and configure arch linux ARM on a raspberry pi 3 model B (+).
 
 ### Set partition table and format sd card
 
-Insert the sd card into a linux machine and get the cards device name using `lsblk`, which should yield a similar output to the following:
+Insert the sd card into a linux machine and get the cards device name using `lsblk`, which should yield a similar output to the following
 
 ```bash
 $ lsblk
@@ -37,7 +37,7 @@ sudo fdisk /dev/sdz
 
 #### Set partition table
 
-Follow the steps below:
+Follow the steps below
 
 1. `o`. This will clear out any partitions on the drive.
 2. `p` to list partitions. There should be no partitions left.
@@ -64,7 +64,7 @@ sudo mount /dev/sdb2 root
 
 ### Write os to sd card
 
-The version of arch linux used here is [arch linux ARM][2], an ARM optimized port of the official [arch linux][3] distribution. Download the distribution and write it to the sd card:
+The version of arch linux used here is [arch linux ARM][2], an ARM optimized port of the official [arch linux][3] distribution. Download the distribution and write it to the sd card
 
 ```bash
 wget http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-2-latest.tar.gz
@@ -133,7 +133,7 @@ locale-gen
 
 ## Add swapfile
 
-Adding a swapfile is not absolutely necessary. Based on the type of work the raspberry pi will be used for a swapfile is advisable. A swap partition is another option that can be implemented at [this][#set-partition-table] stage of the process.
+Adding a swapfile is not absolutely necessary. Based on the type of work the raspberry pi will be used for a swapfile is advisable. A swap partition is another option that can be implemented at [this](#set-partition-table) stage of the process.
 
 ```bash
 # Allocation 3G of space to swapfile
@@ -186,7 +186,7 @@ dhcpcd <interface-name>
 
 The device might not be able to get a connection and need access to wifi be granted by router entry. This can be done by adding a wifi device in wifi security options in the router management console.
 
-After the `dhcpcd <interface-name>` command yields a valid connection it is useful to have the pi connect on startup:
+After the `dhcpcd <interface-name>` command yields a valid connection it is useful to have the pi connect on startup
 
 ```bash
 # Copy and editexample config file
@@ -201,7 +201,7 @@ The _wpa_passphrase PSK_ can be found in `/etc/wpa_supplicant/wpa_supplicant.con
 
 ## Update repositories and enable services
 
-Install relevant software and enable time synchronisation service:
+Install relevant software and enable time synchronisation service
 
 ```bash
 pacman -Syyu
@@ -214,14 +214,14 @@ systemctl start ntpd.service
 systemctl enable ntpd.service
 ```
 
-This may require the pacman keys to be initialized and populated:
+This may require the pacman keys to be initialized and populated
 
 ```bash
 pacman-key --init
 pacman-key --populate archlinuxarm
 ```
 
-Since sudo is now installed, add [previously][#user-managment] created users to sudo group wheel:
+Since sudo is now installed, add [previously](#user-managment) created users to sudo group wheel
 
 ```bash
 nano /etc/sudoers
