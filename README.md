@@ -192,7 +192,7 @@ After the `dhcpcd <interface-name>` command yields a valid connection it is usef
 # Copy and editexample config file
 sudo cp /etc/netctl/example/wireless-wpa /etc/netctl/auto-connect
 sudo nano /etc/netctl/auto-connect
-# Use wpa_passphrase PSK instead of key!!
+# Use wpa_passphrase PSK instead of key
 # Key='<psk>'
 sudo systemctl enable netctl-auto@wlan0.service
 ```
