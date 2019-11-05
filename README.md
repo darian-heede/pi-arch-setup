@@ -1,6 +1,6 @@
 # Setup arch linux on a raspberry pi
 
-Setup and configure arch linux ARM on a raspberry pi 3 model B (+).
+Setup and configuration of arch linux ARM on a raspberry pi 3 model B (+).
 
 ## Prerequisites
 
