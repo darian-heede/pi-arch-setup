@@ -49,17 +49,17 @@ Follow the steps below
 #### Format the partitions
 
 ```bash
-sudo mkfs.vfat /dev/sdb1
+sudo mkfs.vfat /dev/sdz1
 # Create boot folder in ~/
 mkdir boot
 # Mount boot partition to boot folder
-sudo mount /dev/sdb1 boot
+sudo mount /dev/sdz1 boot
 
-sudo mkfs.ext4 /dev/sdb2
+sudo mkfs.ext4 /dev/sdz2
 # Create root folder in ~/
 mkdir root
 # Mount root partition to root folder
-sudo mount /dev/sdb2 root
+sudo mount /dev/sdz2 root
 ```
 
 ### Write os to sd card
