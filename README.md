@@ -41,7 +41,7 @@ Follow the steps below
 
 1. `o`. This will clear out any partitions on the drive.
 2. `p` to list partitions. There should be no partitions left.
-3. `n`, then p for primary, `1` for the first partition on the drive, press ENTER to accept the default first sector, then type +100M for the last sector.
+3. `n`, then `p` for primary, `1` for the first partition on the drive, press ENTER to accept the default first sector, then type +100M for the last sector.
 4. `t`, then `c` to set the first partition to type W95 FAT32 (LBA).
 5. `n`, then `p` for primary, `2` for the second partition on the drive, and then press ENTER twice to accept the default first and last sector.
 6. `w`, Write the partition table and exit with `q`
@@ -50,13 +50,13 @@ Follow the steps below
 
 ```bash
 sudo mkfs.vfat /dev/sdz1
-# Create boot folder in ~/
+# Create boot folder in $pwd
 mkdir boot
 # Mount boot partition to boot folder
 sudo mount /dev/sdz1 boot
 
 sudo mkfs.ext4 /dev/sdz2
-# Create root folder in ~/
+# Create root folder in $pwd
 mkdir root
 # Mount root partition to root folder
 sudo mount /dev/sdz2 root
@@ -77,8 +77,8 @@ sync
 sudo umount boot root
 
 # clean up root and boot folders
-rm -rf ~/root
-rm -rf ~/boot
+rm -rf root
+rm -rf boot
 ```
 
 > The 2 in the tarball name `ArchLinuxARM-rpi-2-latest.tar.gz` is not related to the raspberry pi version 2 and is valid for a raspberry pi 3 model B (+) as well.
@@ -94,6 +94,12 @@ Depending on your keyboard layout, it may be advisable to map the correct keys
 ```bash
 # Load german keymap
 loadkeys de
+```
+
+To prevent kernel massages from flooding the console run
+
+```bash
+sysctl -w kernel.printk="3 4 1 3"
 ```
 
 ### User managment
@@ -301,6 +307,41 @@ sudo vim /etc/motd
 sudo vim /etc/ssh/sshd_config
 # Change line 'Banner none' to 'Banner /etc/banner'
 ```
+
+## Troubleshooting
+
+### Booting issues
+
+If the bootloader gets stuck and the rpi doesn't boot properly, i.e. no hdmi signal. Reset the boot partition. 
+
+```bash
+sudo mkfs.vfat /dev/sdz1
+# Create boot folder in $pwd
+mkdir boot
+# Mount boot partition to boot folder
+sudo mount /dev/sdz1 boot
+
+# Create root folder in $pwd
+mkdir root
+
+# Download latest os
+wget http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-2-latest.tar.gz
+# Unpack cntents to root folder
+sudo bsdtar -xpf ArchLinuxARM-rpi-2-latest.tar.gz -C root
+sync
+
+# Copy boot folder to mounted boot partition
+sudo cp root/boot/* boot
+sync
+
+sudo umount boot
+```
+
+Then downgrade the updated bootloader (`raspberrypi-bootloader`, `raspberrypi-bootloader`) and the kernel module (`linux-raspberrypi`) and reboot the system.
+
+
+
+
 
 
 [1]: http://tldp.org/HOWTO/Partition/fdisk_partitioning.html
